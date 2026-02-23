@@ -1,0 +1,5 @@
+{
+  "name": "ProntoJob - Trabajos Inmediatos",
+  "description": "Marketplace hiperlocal en España para trabajos puntuales con precio cerrado y pago seguro.",
+  "requestFramePermissions": ["geolocation"]
+}
