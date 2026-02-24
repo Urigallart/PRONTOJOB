@@ -145,10 +145,10 @@ export const HowItWorksPage = () => {
             Únete a la comunidad que está revolucionando los trabajos inmediatos en España.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/post-job" className="btn-primary bg-primary border-primary hover:bg-white hover:text-primary">
+            <Link to="/post-job" className="btn-primary bg-primary border-ink hover:bg-white hover:text-ink shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-none transition-all">
               Publicar Trabajo
             </Link>
-            <Link to="/explore" className="btn-outline border-white text-white hover:bg-white hover:text-ink">
+            <Link to="/explore" className="btn-outline border-white text-white hover:bg-white hover:text-ink shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-none transition-all">
               Ver Trabajos Disponibles
             </Link>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -8,26 +8,43 @@ import {
   User as UserIcon,
   Star,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  ShieldAlert,
+  Calendar,
+  Zap
 } from 'lucide-react';
 import { Job, User } from '../types';
+import { useAuth } from '../context/AuthContext';
+import { MOCK_JOBS } from '../data/mockData';
 
 export const JobDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user: currentUser } = useAuth();
   const [job, setJob] = useState<Job | null>(null);
-  const [client, setClient] = useState<User | null>(null);
   const [applied, setApplied] = useState(false);
 
   useEffect(() => {
-    // In a real app, we'd fetch job and client data
-    fetch('/api/jobs')
-      .then(res => res.json())
-      .then(data => {
-        const found = data.find((j: Job) => j.id === id);
-        setJob(found);
-      });
+    // Simulate API fetch with mock data
+    const found = MOCK_JOBS.find(j => j.id === id);
+    if (found) {
+      setJob(found);
+    } else {
+      // Fallback if not found in MOCK_JOBS
+      setJob(null);
+    }
   }, [id]);
+
+  const handleApply = () => {
+    if (!currentUser) {
+      navigate('/login');
+      return;
+    }
+    if (currentUser.verification_status !== 'VERIFIED') {
+      return;
+    }
+    setApplied(true);
+  };
 
   if (!job) return <div className="p-20 text-center font-display font-bold uppercase">Cargando...</div>;
 
@@ -63,10 +80,16 @@ export const JobDetailsPage = () => {
 
               <div className="flex flex-wrap gap-6 py-6 border-y-2 border-ink/5 mb-8">
                 <div className="flex items-center gap-2 text-sm font-bold uppercase">
-                  <MapPin size={18} className="text-primary" /> {job.direccion}
+                  <MapPin size={18} className="text-primary" /> {job.ubicacion_texto}
                 </div>
                 <div className="flex items-center gap-2 text-sm font-bold uppercase">
-                  <Clock size={18} className="text-primary" /> Publicado hace 2h
+                  <Clock size={18} className="text-primary" /> {job.duracion_estimada}
+                </div>
+                <div className="flex items-center gap-2 text-sm font-bold uppercase">
+                  <Calendar size={18} className="text-primary" /> {job.fecha} ({job.franja_horaria})
+                </div>
+                <div className="flex items-center gap-2 text-sm font-bold uppercase">
+                  <Zap size={18} className="text-primary" /> Nivel: {job.nivel}
                 </div>
                 <div className="flex items-center gap-2 text-sm font-bold uppercase">
                   <ShieldCheck size={18} className="text-success" /> Pago Garantizado
@@ -99,18 +122,18 @@ export const JobDetailsPage = () => {
             {/* Client Info */}
             <div className="card-brutal bg-white">
               <h3 className="font-black uppercase mb-6 border-b-2 border-ink/5 pb-4 text-sm">Sobre el cliente</h3>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-bg border-2 border-ink flex items-center justify-center">
+              <Link to={`/profile/${job.cliente_id}`} className="flex items-center gap-4 mb-6 group">
+                <div className="w-16 h-16 bg-bg border-2 border-ink flex items-center justify-center group-hover:bg-primary/5 transition-colors">
                   <UserIcon size={32} />
                 </div>
                 <div>
-                  <div className="font-black uppercase">Juan P.</div>
+                  <div className="font-black uppercase group-hover:text-primary transition-colors">Juan P.</div>
                   <div className="flex items-center gap-1 text-alert">
                     <Star size={14} fill="currentColor" />
                     <span className="text-xs font-bold">4.8 (12 trabajos)</span>
                   </div>
                 </div>
-              </div>
+              </Link>
               <div className="space-y-3">
                 <div className="flex justify-between text-[10px] font-mono uppercase">
                   <span className="text-ink/40">Miembro desde</span>
@@ -128,14 +151,30 @@ export const JobDetailsPage = () => {
               {!applied ? (
                 <>
                   <h3 className="text-xl font-black uppercase mb-4">¿Te interesa?</h3>
-                  <p className="text-xs text-white/60 mb-8 font-medium">
-                    Al solicitar este trabajo, confirmas que puedes realizarlo por el precio indicado y en la ubicación especificada.
-                  </p>
+                  
+                  {currentUser && currentUser.verification_status !== 'VERIFIED' ? (
+                    <div className="bg-white/10 p-4 border border-white/20 mb-6">
+                      <div className="flex items-center gap-2 text-alert mb-2">
+                        <ShieldAlert size={16} />
+                        <span className="text-[10px] font-black uppercase">Verificación requerida</span>
+                      </div>
+                      <p className="text-[10px] text-white/60 font-medium mb-4 leading-tight">
+                        Debes verificar tu identidad antes de poder enviar solicitudes a trabajos.
+                      </p>
+                      <Link to="/register" className="text-[10px] font-black uppercase underline hover:text-white">Verificar ahora</Link>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-white/60 mb-8 font-medium">
+                      Al solicitar este trabajo, confirmas que puedes realizarlo por el precio indicado y en la ubicación especificada.
+                    </p>
+                  )}
+
                   <button 
-                    onClick={() => setApplied(true)}
-                    className="w-full bg-primary text-white py-4 font-display font-black uppercase tracking-wider border-2 border-primary hover:bg-white hover:text-primary transition-all shadow-[4px_4px_0px_0px_rgba(37,99,235,1)]"
+                    onClick={handleApply}
+                    disabled={currentUser?.verification_status !== 'VERIFIED' && !!currentUser}
+                    className="w-full bg-primary text-white py-4 font-display font-black uppercase tracking-wider border-2 border-primary hover:bg-white hover:text-primary transition-all shadow-[4px_4px_0px_0px_rgba(37,99,235,1)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Enviar Solicitud
+                    {currentUser ? 'Enviar Solicitud' : 'Inicia sesión para aplicar'}
                   </button>
                 </>
               ) : (

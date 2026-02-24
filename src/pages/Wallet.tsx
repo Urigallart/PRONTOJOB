@@ -11,9 +11,16 @@ import {
 
 export const WalletPage = () => {
   const transactions = [
-    { id: 1, type: 'ingreso', amount: 60, title: 'Montaje Armario', date: '22 Feb 2024', status: 'completado' },
-    { id: 2, type: 'retiro', amount: 100, title: 'Retirada a banco', date: '20 Feb 2024', status: 'procesando' },
-    { id: 3, type: 'ingreso', amount: 45, title: 'Limpieza Jardín', date: '18 Feb 2024', status: 'completado' },
+    { id: 1, type: 'ingreso', amount: 60, title: 'Montaje Armario', date: '24 Feb 2024', status: 'completado' },
+    { id: 2, type: 'retiro', amount: 100, title: 'Retirada a banco', date: '23 Feb 2024', status: 'procesando' },
+    { id: 3, type: 'ingreso', amount: 45, title: 'Limpieza Jardín', date: '22 Feb 2024', status: 'completado' },
+    { id: 4, type: 'ingreso', amount: 120, title: 'Pintura Habitación', date: '21 Feb 2024', status: 'completado' },
+    { id: 5, type: 'ingreso', amount: 30, title: 'Paseo de Perros', date: '20 Feb 2024', status: 'completado' },
+    { id: 6, type: 'retiro', amount: 50, title: 'Retirada a banco', date: '19 Feb 2024', status: 'completado' },
+    { id: 7, type: 'ingreso', amount: 85, title: 'Reparación Grifo', date: '18 Feb 2024', status: 'completado' },
+    { id: 8, type: 'ingreso', amount: 40, title: 'Recado IKEA', date: '17 Feb 2024', status: 'completado' },
+    { id: 9, type: 'ingreso', amount: 55, title: 'Clase de Inglés', date: '16 Feb 2024', status: 'completado' },
+    { id: 10, type: 'retiro', amount: 200, title: 'Retirada a banco', date: '15 Feb 2024', status: 'completado' },
   ];
 
   return (
@@ -32,7 +39,7 @@ export const WalletPage = () => {
                 <div className="flex justify-between items-start mb-12">
                   <div>
                     <div className="text-[10px] font-mono uppercase text-white/40 mb-1">Saldo Disponible</div>
-                    <div className="text-6xl font-black tracking-tighter">245.50€</div>
+                    <div className="text-6xl font-black tracking-tighter">285.50€</div>
                   </div>
                   <WalletIcon size={48} className="text-primary opacity-50" />
                 </div>
@@ -40,11 +47,11 @@ export const WalletPage = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-white/5 p-4 border border-white/10">
                     <div className="text-[10px] font-mono uppercase text-white/40 mb-1">Retenido (Escrow)</div>
-                    <div className="text-xl font-black">80.00€</div>
+                    <div className="text-xl font-black">120.00€</div>
                   </div>
                   <div className="bg-white/5 p-4 border border-white/10">
                     <div className="text-[10px] font-mono uppercase text-white/40 mb-1">Total Ganado</div>
-                    <div className="text-xl font-black">1,240€</div>
+                    <div className="text-xl font-black">1,840€</div>
                   </div>
                 </div>
               </div>
@@ -61,7 +68,7 @@ export const WalletPage = () => {
 
             {/* Transaction History */}
             <div className="card-brutal bg-white p-8">
-              <h3 className="text-xl font-black uppercase mb-8">Historial de Transacciones</h3>
+              <h3 className="text-xl font-black uppercase mb-8">Últimos 10 Movimientos</h3>
               <div className="space-y-6">
                 {transactions.map(tx => (
                   <div key={tx.id} className="flex items-center justify-between py-4 border-b-2 border-ink/5 last:border-0">
@@ -78,14 +85,13 @@ export const WalletPage = () => {
                       <div className={`font-black ${tx.type === 'ingreso' ? 'text-success' : 'text-error'}`}>
                         {tx.type === 'ingreso' ? '+' : '-'}{tx.amount}€
                       </div>
-                      <div className="text-[10px] font-mono uppercase font-bold opacity-40">{tx.status}</div>
+                      <span className="text-[10px] font-mono uppercase font-bold opacity-40">
+                        {tx.status}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-8 font-display font-bold uppercase text-xs text-ink/40 hover:text-ink transition-colors">
-                Ver todo el historial
-              </button>
             </div>
           </div>
 
@@ -94,10 +100,16 @@ export const WalletPage = () => {
             <div className="card-brutal bg-white">
               <h3 className="font-black uppercase mb-6 text-sm">Acciones Rápidas</h3>
               <div className="space-y-4">
-                <button className="w-full btn-primary flex items-center justify-center gap-2 py-4">
+                <button 
+                  onClick={() => alert('Funcionalidad de retirada próximamente. Tu saldo está seguro.')}
+                  className="w-full btn-primary flex items-center justify-center gap-2 py-4"
+                >
                   <ArrowUpRight size={18} /> Retirar Fondos
                 </button>
-                <button className="w-full btn-outline flex items-center justify-center gap-2 py-4">
+                <button 
+                  onClick={() => alert('Gestión de métodos de pago próximamente.')}
+                  className="w-full btn-outline flex items-center justify-center gap-2 py-4"
+                >
                   <CreditCard size={18} /> Métodos de Pago
                 </button>
               </div>

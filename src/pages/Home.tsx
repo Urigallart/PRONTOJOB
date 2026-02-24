@@ -24,79 +24,91 @@ export const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-white border-b-2 border-ink">
+      <section className="relative py-20 lg:py-32 overflow-hidden bg-white border-b-4 border-ink">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '32px 32px' }}></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-block bg-alert text-ink font-mono text-xs font-bold px-3 py-1 mb-6 border border-ink uppercase">
+              <div className="inline-flex items-center gap-2 bg-alert text-ink font-mono text-xs font-black px-4 py-2 mb-8 border-2 border-ink uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ink opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-ink"></span>
+                </span>
                 Marketplace Hiperlocal • España
               </div>
-              <h1 className="text-6xl md:text-8xl font-black leading-[0.9] mb-8 uppercase tracking-tighter">
+              <h1 className="text-6xl md:text-9xl font-black leading-[0.85] mb-8 uppercase tracking-tighter">
                 Soluciones <br />
-                <span className="text-primary">Al Instante.</span>
+                <span className="text-primary italic">Al Instante.</span>
               </h1>
-              <p className="text-xl text-ink/70 mb-10 max-w-lg font-medium">
-                Conectamos a personas que necesitan ayuda inmediata con profesionales verificados a la vuelta de la esquina. Precio cerrado. Sin rodeos.
+              <p className="text-xl md:text-2xl text-ink/80 mb-12 max-w-xl font-bold leading-tight">
+                Conectamos a personas que necesitan ayuda inmediata con profesionales verificados a la vuelta de la esquina. <span className="bg-primary/10 px-1">Precio cerrado. Sin rodeos.</span>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/explore" className="btn-primary flex items-center justify-center gap-2 text-lg">
-                  Necesito Ayuda <ArrowRight size={20} />
+              <div className="flex flex-col sm:flex-row gap-6">
+                <Link to="/explore" className="btn-primary flex items-center justify-center gap-3 text-xl py-6 px-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                  Necesito Ayuda <ArrowRight size={24} />
                 </Link>
-                <Link to="/explore" className="btn-outline flex items-center justify-center gap-2 text-lg">
+                <Link to="/explore" className="btn-outline flex items-center justify-center gap-3 text-xl py-6 px-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all bg-white">
                   Quiero Trabajar
                 </Link>
               </div>
               
-              <div className="mt-12 flex items-center gap-8 border-t-2 border-ink/10 pt-8">
+              <div className="mt-16 flex items-center gap-6 md:gap-12 border-t-4 border-ink pt-10">
                 <div>
-                  <div className="text-3xl font-black font-display">15k+</div>
-                  <div className="text-xs font-mono uppercase text-ink/50">Trabajos Realizados</div>
+                  <div className="text-3xl md:text-5xl font-black font-display tracking-tighter">15k+</div>
+                  <div className="text-xs font-mono uppercase font-black text-ink/40">Trabajos</div>
                 </div>
-                <div className="w-px h-10 bg-ink/10"></div>
+                <div className="w-1 h-12 bg-ink/10"></div>
                 <div>
-                  <div className="text-3xl font-black font-display">4.9/5</div>
-                  <div className="text-xs font-mono uppercase text-ink/50">Valoración Media</div>
+                  <div className="text-3xl md:text-5xl font-black font-display tracking-tighter">4.9/5</div>
+                  <div className="text-xs font-mono uppercase font-black text-ink/40">Valoración</div>
                 </div>
-                <div className="w-px h-10 bg-ink/10"></div>
+                <div className="w-1 h-12 bg-ink/10"></div>
                 <div>
-                  <div className="text-3xl font-black font-display">100%</div>
-                  <div className="text-xs font-mono uppercase text-ink/50">Pagos Seguros</div>
+                  <div className="text-3xl md:text-5xl font-black font-display tracking-tighter">100%</div>
+                  <div className="text-xs font-mono uppercase font-black text-ink/40">Seguro</div>
                 </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.8, type: 'spring' }}
               className="relative hidden lg:block"
             >
-              <div className="card-brutal bg-primary/5 p-2">
-                <img 
-                  src="https://picsum.photos/seed/worker/800/800" 
-                  alt="Trabajador" 
-                  className="w-full grayscale hover:grayscale-0 transition-all duration-500 border-2 border-ink"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute -bottom-6 -left-6 card-brutal bg-white max-w-xs">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-alert border border-ink"></div>
-                    <div>
-                      <div className="font-bold text-sm">Carlos M.</div>
-                      <div className="text-xs text-ink/60">Montaje de muebles</div>
+              <div className="relative z-10">
+                <div className="card-brutal bg-white p-3 rotate-3 hover:rotate-0 transition-all duration-500 shadow-[20px_20px_0px_0px_rgba(242,125,38,1)]">
+                  <img 
+                    src="https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=800&h=800" 
+                    alt="Jardinero cortando césped" 
+                    className="w-full grayscale hover:grayscale-0 transition-all duration-700 border-4 border-ink aspect-square object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute -bottom-10 -left-10 card-brutal bg-white max-w-xs -rotate-6 hover:rotate-0 transition-all p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="w-12 h-12 bg-alert border-2 border-ink flex items-center justify-center font-black text-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">D</div>
+                      <div>
+                        <div className="font-black text-lg uppercase tracking-tighter">David L.</div>
+                        <div className="text-xs font-mono font-bold text-primary uppercase">Jardinería • Verificado</div>
+                      </div>
                     </div>
+                    <div className="text-sm font-bold leading-snug italic">"ProntoJob me ha permitido encontrar clientes en mi barrio para cuidar sus jardines de forma sencilla."</div>
                   </div>
-                  <div className="text-xs font-medium">"Acabo de terminar un montaje en Chamberí. ¡Cliente muy satisfecho!"</div>
                 </div>
               </div>
+              
+              {/* Decorative blobs */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-alert/20 rounded-full blur-3xl -z-10"></div>
             </motion.div>
           </div>
         </div>
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -z-10 border-l-2 border-ink/5"></div>
       </section>
 
       {/* Categories Section */}
@@ -128,17 +140,63 @@ export const HomePage = () => {
         </div>
       </section>
 
+      {/* How it Works Section */}
+      <section className="py-24 bg-white border-b-4 border-ink">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6">¿Cómo funciona?</h2>
+            <p className="text-xl text-ink/60 font-medium max-w-2xl mx-auto">Tres pasos sencillos para solucionar cualquier problema o ganar dinero extra.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-12 relative">
+            {/* Connecting line for desktop */}
+            <div className="hidden md:block absolute top-1/4 left-0 w-full h-1 border-t-4 border-dashed border-ink/10 -z-0"></div>
+            
+            <div className="relative z-10 text-center">
+              <div className="w-24 h-24 bg-primary text-white border-4 border-ink flex items-center justify-center text-4xl font-black mx-auto mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-3">1</div>
+              <h3 className="text-2xl font-black uppercase mb-4">Publica o Busca</h3>
+              <p className="text-ink/70 font-medium">Describe lo que necesitas o explora los trabajos disponibles en tu zona.</p>
+            </div>
+
+            <div className="relative z-10 text-center">
+              <div className="w-24 h-24 bg-alert text-ink border-4 border-ink flex items-center justify-center text-4xl font-black mx-auto mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] -rotate-3">2</div>
+              <h3 className="text-2xl font-black uppercase mb-4">Conecta al Instante</h3>
+              <p className="text-ink/70 font-medium">Acepta un presupuesto cerrado o envía una oferta. Sin negociaciones infinitas.</p>
+            </div>
+
+            <div className="relative z-10 text-center">
+              <div className="w-24 h-24 bg-success text-white border-4 border-ink flex items-center justify-center text-4xl font-black mx-auto mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-6">3</div>
+              <h3 className="text-2xl font-black uppercase mb-4">Pago Garantizado</h3>
+              <p className="text-ink/70 font-medium">El pago se libera solo cuando el trabajo está terminado y tú estás satisfecho.</p>
+            </div>
+          </div>
+
+          <div className="mt-20 text-center">
+            <Link to="/how-it-works" className="btn-outline py-4 px-10 text-lg bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              Saber más sobre el proceso
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Jobs Section */}
       <section className="py-20 bg-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Trabajos Urgentes</h2>
-            <p className="text-ink/60 font-mono text-sm uppercase">Cerca de ti ahora mismo</p>
+          <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
+            <div>
+              <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Trabajos Urgentes</h2>
+              <p className="text-ink/60 font-mono text-sm uppercase">Cerca de ti ahora mismo</p>
+            </div>
+            <Link to="/explore" className="btn-outline text-xs py-2">Ver todos los trabajos</Link>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {jobs.length > 0 ? jobs.map(job => (
-              <div key={job.id} className="card-brutal bg-white flex flex-col h-full">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                key={job.id} 
+                className="card-brutal bg-white flex flex-col h-full"
+              >
                 <div className="flex justify-between items-start mb-4">
                   <span className="bg-error text-white font-mono text-[10px] font-bold px-2 py-0.5 border border-ink uppercase">Urgente</span>
                   <span className="text-2xl font-black text-primary">{job.precio}€</span>
@@ -149,7 +207,7 @@ export const HomePage = () => {
                   <MapPin size={14} /> {job.direccion}
                 </div>
                 <Link to={`/job/${job.id}`} className="w-full btn-outline py-2 text-sm text-center">Ver detalles</Link>
-              </div>
+              </motion.div>
             )) : (
               [1, 2, 3].map(i => (
                 <div key={i} className="card-brutal bg-white animate-pulse">
